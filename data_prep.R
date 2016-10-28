@@ -1,8 +1,8 @@
 library(openWAR)
 may <- getData(start="2015-05-01", end="2015-05-31")
-Andrew<-function(x)
-  (2*x) 
-
+Andrew<-function(x){
+  (3*x) 
+}
 Andrew(3)
 
 
