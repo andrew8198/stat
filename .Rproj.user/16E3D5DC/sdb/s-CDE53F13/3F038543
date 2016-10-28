@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(openWAR)\nmay <- getData(start=\"2015-05-01\", end=\"2015-05-31\")\n",
+    "created" : 1477676449826.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1335527977",
+    "id" : "3F038543",
+    "lastKnownWriteTime" : 1477676856,
+    "last_content_update" : 1477676867640,
+    "path" : "~/Desktop/stat/data_prep.R",
+    "project_path" : "data_prep.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
