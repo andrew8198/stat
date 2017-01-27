@@ -80,6 +80,8 @@ base_value("Double")
 # create colum that will use the base value function to find the mean
 data$base_value<- sapply(data$Event, FUN=function(x)base_value(x))
 summary(data$base_value)
+library(ggplot2)
+qplot(data$base_value)
 
 ###-------------------------------------------------------------###
 ### Get average weights per region from data
@@ -156,7 +158,7 @@ for(guy in testguys){
   loc_slg(bips$n[1:5])
   
   
-  BIPS
+
 
   # Calculate loc_slg for 
   
