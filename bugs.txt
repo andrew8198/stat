@@ -1,3 +1,7 @@
 Bugs
 
-* data seems to be missing rows (data are only from 2010). We may need to re-run data_prep
+* data seems to be missing rows (data are only from 2010). We may need to re-run data_prep to include all seasons.
+
+* NOT A BUG: we need to decide on analyses of the stat.
+* NOT A BUG: we need to consider how to visualize the stat.
+
