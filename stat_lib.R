@@ -8,6 +8,20 @@
 library(openWAR)
 library(dplyr)
 
+y_intercept <- function(x1, y1, x2, y2){
+  # Takes four numbers corresponding to two coordinate pairs (x1, y1) & (x2, y2)
+  # Returns the y-intercept of the line running through this pair of points.
+  
+  m = slope(x1, y1, x2, y2)
+  return(y1 - m*x1)
+}
+
+slope <- function(x1, y1, x2, y2){
+  # Takes four numbers corresponding to two coordinate pairs (x1, y1) & (x2, y2)
+  # Returns slope of the line running through this pair of points.
+  
+  return((y2 - y1)/(x2 - x1))
+}
 
 # Determine what region a ball in play lands in
 ball_in_play<-function(x,y) {

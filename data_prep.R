@@ -31,20 +31,13 @@ data$Event <- factor(data$Event,
                      ordered = TRUE)
 
 
-write.csv(data,"alldata.csv",row.names=FALSE)
+write.csv(data,"alldata.csv", row.names=FALSE)
 saveRDS(data, "alldata.RDS")
 
 # data$stand <- ifelse(data$stand=="R", "Right-Handed Batter",
 # "Left-Handed Batter")
 
 head(data$event)
-
-# spray plot
-
-
-head(data$event)
-
-data$event
 
 
 

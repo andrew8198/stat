@@ -1,11 +1,18 @@
+###---------------------------------------------------------###
+###---------------------------------------------------------###
+###       CODE TO CALCULATE ANDREW'S BASEBALL STAT
+###---------------------------------------------------------###
+###---------------------------------------------------------###
+
 library(dplyr)
 setwd("~/GitHub/stat/")
 source("stat_lib.R")
 
+
 # Read in data
 data<-readRDS("alldata.RDS")
 dim(data) # only 170K events. That seems a little light
-names(data)
+tail(data$timestamp)
 
 
 # Set what region each BIP lands in
@@ -27,7 +34,7 @@ dim(dataR1)
 # LEFT_SIDE_OF_INFIELD<-mean(data_LEFT_SIDE_OF_INFIELD$base_value)
 
 # create colum that will use the base value function to find the mean
-data$base_value<- sapply(data$Event, FUN=function(x)base_value(x))
+data$base_value<- sapply(data$Event, FUN=function(x) base_value(x))
 summary(data$base_value)
 library(ggplot2)
 qplot(data$base_value)
@@ -54,86 +61,3 @@ loc_slg <- function(X){
   return(b %*% X / sum(X))
 }
 
-# #find player values 
-# A.S.S.<-function(x,y) {
-#   if(is.na(x) | is.na(y)){
-#     return(NA)
-#     break
-#   }
-#   if((slope(x,y,0,60.5)*x)+y_intercept(x,y,0,60.5)>=0-90
-#      & ( (slope(x,y,0,60.5)*x)+y_intercept(x,y,0,60.5)<=0+90) & 
-#      (y-(y_intercept(x,y,0,60.5)))/slope(x,y,0,60.5)>=60.5-90 & 
-#      (y-(y_intercept(x,y,0,60.5)))/slope(x,y,0,60.5) <=60.5+90 |
-#      (abs(sqrt(0^2+60.5^2)-sqrt(x^2+y^2))<= 95)& abs(y/x)>=1 & x<0)
-#     
-#   {return("# LEFT SIDE OF INFIELD")}
-#   else if((slope(x,y,0,60.5)*x)+y_intercept(x,y,0,60.5)>=0-90
-#           & ( (slope(x,y,0,60.5)*x)+y_intercept(x,y,0,60.5)<=0+90) & 
-#           (y-(y_intercept(x,y,0,60.5)))/slope(x,y,0,60.5)>=60.5-90 & 
-#           (y-(y_intercept(x,y,0,60.5)))/slope(x,y,0,60.5) <=60.5+90 |
-#           (abs(sqrt(0^2+60.5^2)-sqrt(x^2+y^2))<= 95)& abs(y/x)>=1 & (x>0))
-#   {return(" # RIGHT SIDE OF INFIELD")}
-#   else if (abs(sqrt(0^2+60.5^2)-sqrt(x^2+y^2))>= 95 &abs(y)>=x &x>=0)
-#   {return(" # RIGHT SIDE OF OUTFIELD")}
-#   else if (abs(sqrt(0^2+60.5^2)-sqrt(x^2+y^2))>= 95 &abs(y)>=x &x<=0)
-#   {return(" # LEFT SIDE OF OUTFIELD")}
-#   else {
-#     return(" #NOT IN PLAY")
-#   }
-# } 
-
-###-------------------------------------------------------------###
-### Test loc_slg on players
-###-------------------------------------------------------------###
-
-#filter players 10 (Cano, Jeter , Drew, J , Ortiz, D  Heyward, Prado  Suzuki, I Votto Bruce Loney )
-Cano<-filter(data,batterName=="Cano") # get Cano's data
-can <- tally(group_by(Cano,region)) # Get Cano's BIPs by region
-loc_slg(can$n[1:5])
-
-testguys <- c("Cano", "Jeter", "Drew, J", "Ortiz, D", "Heyward", "Prado", "Huff", "Uribe", "Glaus", "Votto")
-test_locslg <- data.frame(name=NULL, locslg=NULL)
-for(guy in testguys){
-  # Filter out the data for that guy and store it as tmp
-  tmp<-filter(data, batterName==guy) 
-  
-  # Tally the number of BIPs for that guy and store it as bips
-  bips<-tally(group_by(tmp, region)) 
-  
-  # Take bips and
-      # Reorder it so that it follows the order defined on line 101
-      # If there is a region missing, add in a row for that region and an n=0 for that row
-  
-  loc_slg(bips$n[1:5])
-  
-  
-
-
-  # Calculate loc_slg for 
-  
-  # Store the player's name and loc_slg value
-  test_locslg$name <- c(test_locslg$name, guy)
-  test_locslg$locslg <- c(test_locslg$locslg, lslg)
-  
-}
-
-
-###-------------------------------------------------------------###
-### Create stat based on run value (UNDER CONSTRUCTION)
-###-------------------------------------------------------------###
-value_stat<-function(x1,x2,x3,x4,ab)
-  (((x1*.10524700)+(x3*0.90796180)+(x4*.82243020)*(x2*0.23114447))/ab)
-value_stat(x1,x2,x3,x4,ab)
-
-#create code for b 
-
-ball_in_play(3,4)
-
-
-value_stat(3,3,3,3,55)
-
-
-value_stat(Cano)
-head(Cano)
-head(tally)
-head(data$region)

@@ -1,5 +1,3 @@
 Bugs
 
-1. missing 'slope' function called in ball_in_play.
-2. data seems to be missing rows. We may need to re-run data_prep
-3. 
+* data seems to be missing rows (data are only from 2010). We may need to re-run data_prep
