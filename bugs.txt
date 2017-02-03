@@ -3,6 +3,9 @@ Bugs:
 
 
 To Do:
+* By 2/10: Update alldata.RDS with all seasons available. 
+            Run all of baseballstat.R 
+            Run stat_analysis.R
 * NOT A BUG: we need to decide on analyses of the stat.
 * NOT A BUG: we need to consider how to visualize the stat.
 
