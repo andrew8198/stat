@@ -1,0 +1,5 @@
+Bugs
+
+1. missing 'slope' function called in ball_in_play.
+2. data seems to be missing rows. We may need to re-run data_prep
+3. 

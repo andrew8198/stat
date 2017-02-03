@@ -1,50 +1,16 @@
 library(dplyr)
 setwd("~/GitHub/stat/")
+source("stat_lib.R")
 
 # Read in data
 data<-readRDS("alldata.RDS")
+dim(data) # only 170K events. That seems a little light
+names(data)
 
-
-###-------------------------------------------------------------###
-### Figure out where a BIP lands
-###-------------------------------------------------------------###
-
-# Determine what region a ball in play lands in
-ball_in_play<-function(x,y) {
-  # Takes: x, y (numeric) coordinates of BIP
-  # Returns: region (character) that BIP lands in
-  
-  if(is.na(x) | is.na(y)){
-    return(NA)
-    break
-  }
-  if((slope(x,y,0,60.5)*x)+y_intercept(x,y,0,60.5)>=0-90
-     & ( (slope(x,y,0,60.5)*x)+y_intercept(x,y,0,60.5)<=0+90) & 
-     (y-(y_intercept(x,y,0,60.5)))/slope(x,y,0,60.5)>=60.5-90 & 
-     (y-(y_intercept(x,y,0,60.5)))/slope(x,y,0,60.5) <=60.5+90 |
-     (abs(sqrt(0^2+60.5^2)-sqrt(x^2+y^2))<= 95)& abs(y/x)>=1 & x<0)
-    
-  {return("LEFT SIDE OF INFIELD")}
-  else if((slope(x,y,0,60.5)*x)+y_intercept(x,y,0,60.5)>=0-90
-          & ( (slope(x,y,0,60.5)*x)+y_intercept(x,y,0,60.5)<=0+90) & 
-          (y-(y_intercept(x,y,0,60.5)))/slope(x,y,0,60.5)>=60.5-90 & 
-          (y-(y_intercept(x,y,0,60.5)))/slope(x,y,0,60.5) <=60.5+90 |
-          (abs(sqrt(0^2+60.5^2)-sqrt(x^2+y^2))<= 95)& abs(y/x)>=1 & (x>0))
-  {return("RIGHT SIDE OF INFIELD")}
-  else if (abs(sqrt(0^2+60.5^2)-sqrt(x^2+y^2))>= 95 &abs(y)>=x &x>=0)
-  {return("RIGHT SIDE OF OUTFIELD")}
-  else if (abs(sqrt(0^2+60.5^2)-sqrt(x^2+y^2))>= 95 &abs(y)>=x &x<=0)
-  {return("LEFT SIDE OF OUTFIELD")}
-  else {
-    return("NOT IN INFIELD")
-  }
-}
-
-# Check ball in play
-ball_in_play(4,5)
 
 # Set what region each BIP lands in
 data$region <- apply(data[,c("our.x", "our.y")], 1, FUN=function(x) ball_in_play(x[1], x[2]))
+
 # check that we have observations for the RSOI
 dataR1 <- data %>% filter(region== "RIGHT SIDE OF INFIELD")
 dim(dataR1)
@@ -54,25 +20,8 @@ dim(dataR1)
 ### Figure out BIP outcome
 ###-------------------------------------------------------------###
 
-# Function to get average weights per region
-base_value <- function(Event){
-  # Takes:
-  # Returns: 
-  
-  if(Event == "Single"){
-    return(1)
-  }else if(Event == "Double") {
-    return(2)
-  } else if(Event == "Triple") {
-    return(3)
-  }else if(Event == "Home Run") {
-    return(4)
-  }else {
-   return(0)}
-}
-
-base_value("Single")
-base_value("Double")
+# base_value("Single")
+# base_value("Double")
 
 # data_LEFT_SIDE_OF_INFIELD<-data%>%filter(region== "LEFT SIDE OF INFIELD")
 # LEFT_SIDE_OF_INFIELD<-mean(data_LEFT_SIDE_OF_INFIELD$base_value)
