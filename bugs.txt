@@ -6,6 +6,9 @@ To Do:
 * By 2/10: Update alldata.RDS with all seasons available. 
             Run all of baseballstat.R 
             Run stat_analysis.R
+* By 2/17: Write two new functions:
+	1. inRegion(x, y, region): this should take the coordinates of a ball in play as well as a region and return TRUE if (x,y) is in that region and FALSE if it is not. You should think hard about the type of structure 'region' should have. Will it be a list of vertices? Will it be a data frame? Think hard about this!
+	2. Region(x, y, grid): this should take the coordinates of a ball in play, as well as a grid. 'grid' here will be a list of regions, defined the same way you define them for the 'in_region' function. This function should return the region that (x,y) falls in. Two things to note. First, you should use 'in_region' within this function. Second, you should think about your output. Do you output a number (e.g., region 1, 2, etc.) or some other label? This will also have to do with the input 'region'. 
 * NOT A BUG: we need to decide on analyses of the stat.
 * NOT A BUG: we need to consider how to visualize the stat.
 
