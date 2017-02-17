@@ -30,9 +30,6 @@ for(guy in testguys){
   
   loc_slg(bips$n[1:5])
   
-  
-  
-  
   # Calculate loc_slg for 
   
   # Store the player's name and loc_slg value
