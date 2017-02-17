@@ -54,7 +54,28 @@ ball_in_play<-function(x,y) {
   }
 }
 
+inRegionSQ <- function(x, y, region){
+  # Takes: x, y coordinates of ball in play
+  #         region=list(c(x1, x2), ..., c(x4, y4)) the coordinates of the vertices
+  # Returns: TRUE if (x, y) in region
+  
+  inRange = function(x, list){
+    return(x >= min(list) & x <= max(list))
+  }
+  xcoords = sapply(region, function(x) x[1])
+  ycoords = sapply(region, function(x) x[2])
+  if(inRange(x, xcoords) & inRange(y, ycoords)){
+    return(TRUE)
+  } else { 
+    return(FALSE)
+  }
+}
 
+RegionSQ = function(x, y, grid){
+  # grid is a NAMED list of regions
+  # each region is a list of vertices as above
+  # return the name of the region (x, y) is in.
+}
 
 # Function to get average weights per region
 base_value <- function(Event){
@@ -73,3 +94,8 @@ base_value <- function(Event){
     return(0)
   }
 }
+
+# wts = list(1.409, 1.063, 0.764, 0.474, 0.546, 0.385, 0.33, 0.102, -0.001, -0.299, -0.31, 0.285, 0.284, 0.237, 0.195, -0.456, -0.255, -0.953, -0.572, 0.429, 0.026, 0.063)
+# names(wts) = c("HR", "Triple", "Double", "Single", "RBOE", "HBP", "NIBB", "IBB", "Bunt", "Out", "K", "PB", "WP", "BK", "SB", "CS", "PO", "POE", "OA", "INT", "FoulE", "DefInd")
+# event_df = data.frame(event=unique(data$event))
+# wtorders = c(10, 11, 10, 10, 3, 10, 1, 4, 10, 7, 10, 10, 10, 2, 10, 6, 5, 10, )
